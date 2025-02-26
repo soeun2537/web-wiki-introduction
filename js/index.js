@@ -16,4 +16,39 @@ console.log(
   "color: #d81b60; font-size: 16px; font-weight: bold;"
 );
 
-console.log("알맞은 스크립트를 작성하세요");
+document.addEventListener('DOMContentLoaded', ()=>{
+  const mainLogo = document.getElementById('main-logo');
+
+  const originalSrc = './images/main-logo.png';
+  const easterEggSrc = './images/header-logo.png';
+
+  mainLogo.addEventListener('click', (e) =>{
+    e.preventDefault();
+    
+    mainLogo.src = mainLogo.src.endsWith('main-logo.png') ? easterEggSrc : originalSrc;
+  });
+});
+
+window.onload = function () {
+
+  document.getElementById('submit').addEventListener('click', e => {
+      e.preventDefault();
+      const textValue = document.getElementById('comment-content');
+
+      const template = document.querySelector('li');
+      if (!template) return;
+
+      const newComment = template.cloneNode(true);
+
+      newComment.querySelector('.comment-content').textContent = textValue.value;
+      textValue.value = '';
+
+
+      const ulTag = document.querySelector('ul');
+      ulTag.appendChild(newComment);
+
+      alert("댓글이 등록되었습니다.");
+
+      newComment.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+}
